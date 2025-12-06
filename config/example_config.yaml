@@ -1,0 +1,79 @@
+# Example configuration for crawler_scrapper system
+
+crawler:
+  max_depth: 3
+  max_pages: 100
+  delay: 1.0
+  user_agent: "CrawlerScrapperBot/0.1.0"
+  timeout: 30
+  follow_external_links: false
+  allowed_domains:
+    - example.com
+
+scraper:
+  parser: lxml
+  extract_text: true
+  extract_links: true
+  extract_images: true
+  extract_meta: true
+  custom_selectors:
+    article_title: "h1.title"
+    article_content: "div.content"
+
+modules:
+  data_validator:
+    enabled: true
+    required_fields:
+      - url
+      - content
+    min_content_length: 100
+    allowed_status_codes:
+      - 200
+      - 201
+
+  data_transformer:
+    enabled: true
+    transformations:
+      - remove_nulls
+      - lowercase_keys
+
+  rate_limiter:
+    enabled: true
+    requests_per_second: 2
+    burst_size: 5
+
+integrations:
+  auto_builder:
+    enabled: true
+    endpoint: "https://api.example.com/builder"
+    api_key: "your-api-key-here"
+    build_type: "default"
+
+  foundation:
+    enabled: true
+    storage_path: "/data/crawled"
+    database_url: "postgresql://localhost/crawler_db"
+    schema_version: "1.0"
+
+  taxonomy:
+    enabled: true
+    taxonomy_url: "https://api.example.com/taxonomy"
+    default_categories:
+      - web_content
+      - articles
+    auto_classify: true
+
+  gateway:
+    enabled: true
+    gateway_url: "https://api.example.com/gateway"
+    retry_enabled: true
+    max_retries: 3
+    routing_rules:
+      articles:
+        destination: "article_processor"
+        conditions:
+          type: "article"
+      images:
+        destination: "image_processor"
+        conditions:
+          type: "image"
