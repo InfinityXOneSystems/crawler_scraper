@@ -151,7 +151,13 @@ class Crawler:
                     continue
             
             if self.config.allowed_domains:
-                if not any(domain in parsed.netloc for domain in self.config.allowed_domains):
+                # Check if domain matches or is a subdomain of allowed domains
+                domain_allowed = False
+                for allowed_domain in self.config.allowed_domains:
+                    if parsed.netloc == allowed_domain or parsed.netloc.endswith('.' + allowed_domain):
+                        domain_allowed = True
+                        break
+                if not domain_allowed:
                     continue
             
             links.append(absolute_url)

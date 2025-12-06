@@ -138,15 +138,24 @@ class ModuleManager:
         """
         try:
             module = importlib.import_module(module_path)
+        except ModuleNotFoundError as e:
+            raise ImportError(f"Module not found: {module_path}") from e
+        except Exception as e:
+            raise ImportError(f"Failed to import module {module_path}: {e}") from e
+        
+        try:
             module_class = getattr(module, class_name)
-            
-            if not inspect.isclass(module_class) or not issubclass(module_class, BaseModule):
-                raise ValueError(f"{class_name} is not a valid BaseModule subclass")
-            
+        except AttributeError as e:
+            raise ImportError(f"Class '{class_name}' not found in module {module_path}") from e
+        
+        if not inspect.isclass(module_class) or not issubclass(module_class, BaseModule):
+            raise ValueError(f"{class_name} is not a valid BaseModule subclass")
+        
+        try:
             instance = module_class(config)
             self.register_module(name, instance, config)
         except Exception as e:
-            raise ImportError(f"Failed to load module from {module_path}: {e}")
+            raise ImportError(f"Failed to instantiate {class_name}: {e}") from e
     
     def get_all_module_info(self) -> Dict[str, Dict[str, Any]]:
         """

@@ -71,7 +71,7 @@ class Scraper:
         
         return result
     
-    def _extract_text(self, soup: BeautifulSoup) -> Dict[str, str]:
+    def _extract_text(self, soup: BeautifulSoup) -> Dict[str, Any]:
         """Extract text content from the page."""
         return {
             "title": soup.title.string if soup.title else "",
