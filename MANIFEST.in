@@ -1,0 +1,19 @@
+# Include documentation
+include README.md
+include LICENSE
+include ARCHITECTURE.md
+include API.md
+include CONTRIBUTING.md
+
+# Include configuration examples
+recursive-include config *.yaml
+
+# Include examples
+recursive-include examples *.py
+
+# Exclude tests
+recursive-exclude tests *
+recursive-exclude .git *
+
+# Exclude development files
+exclude requirements-dev.txt
