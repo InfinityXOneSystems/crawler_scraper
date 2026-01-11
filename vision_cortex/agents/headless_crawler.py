@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from typing import Dict, Any
 from dataclasses import dataclass
-from dataclasses import asdict
 from vision_cortex.integration.headless_team import fetch_url, allowed_by_robots
 
 

@@ -1,12 +1,12 @@
-import logging
-
 import os
 from typing import Any, Dict
+
 
 class AIDocAgent:
     """
     AI-based Document Processing Agent
-    This agent is responsible for analyzing and processing documents using AI models.
+    This agent is responsible for analyzing and processing documents
+    using AI models.
     """
 
     def __init__(self, model_path: str):
@@ -16,7 +16,9 @@ class AIDocAgent:
     def load_model(self) -> Any:
         """Load the AI model from the specified path."""
         if not os.path.exists(self.model_path):
-            raise FileNotFoundError(f"Model file not found at {self.model_path}")
+            raise FileNotFoundError(
+                f"Model file not found at {self.model_path}"
+            )
         # Placeholder for actual model loading logic
         return f"Loaded model from {self.model_path}"
 
@@ -36,8 +38,11 @@ class AIDocAgent:
             "analysis": "This is a placeholder analysis."
         }
 
-# Example usage
+
 if __name__ == "__main__":
-    logging.info(result)
-    result = agent.process_document("Sample document content.")
-    logging.info(result)
+    # This block is commented out as it requires a valid model path
+    # and logging setup
+    # agent = AIDocAgent(model_path="/path/to/model")
+    # result = agent.process_document("Sample document content.")
+    # print(f"Processing result: {result}")
+    pass

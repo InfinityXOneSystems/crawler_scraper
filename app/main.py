@@ -1,6 +1,6 @@
 import os
 
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, HttpUrl, Field
 from app.crawler import run_crawl
 

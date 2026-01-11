@@ -2,7 +2,6 @@
 # Placeholder for ingest logic
 # Ensure compatibility with the consolidated system
 
-import os
 from app.config import OUTPUT_DIR
 
 # Update ingest to save results in the new output directory

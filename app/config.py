@@ -1,8 +1,13 @@
 import os
 
 # Define the output directory for logs and results
-OUTPUT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'crawler_scraper_output', 'raw'))
+OUTPUT_DIR = os.path.abspath(
+    os.path.join(
+        os.path.dirname(__file__), '..', 'crawler_scraper_output', 'raw'
+    )
+)
 os.makedirs(OUTPUT_DIR, exist_ok=True)
+
 
 CONFIGS = {
     "real_estate": {

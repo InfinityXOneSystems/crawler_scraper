@@ -2,6 +2,7 @@ import logging
 
 from typing import List
 
+
 class ChangeDetector:
     """
     Change Detector
@@ -40,8 +41,8 @@ class ChangeDetector:
         # Placeholder for actual state retrieval logic
         return f"state_of_{document}"
 
-# Example usage
+
 if __name__ == "__main__":
-    logging.info(f"Changed documents: {changes}")
+    detector = ChangeDetector()
     changes = detector.detect_changes(["doc1.txt", "doc2.txt"])
     logging.info(f"Changed documents: {changes}")

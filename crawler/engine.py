@@ -2,7 +2,6 @@ import logging
 
 import asyncio
 import json
-import os
 import time
 from pathlib import Path
 from typing import List, Dict
@@ -51,18 +50,17 @@ async def crawl_page(playwright, url: str, timeout: int = 60) -> Dict:
 async def crawl_urls(urls: List[str], concurrency: int = 4):
     async with httpx.AsyncClient() as client:
         async with async_playwright() as p:
-            sem = asyncio.Semaphore(concurrency)
+            asyncio.Semaphore(concurrency)
 
             async def _crawl(u):
-                        logging.info("blocked by robots", u)
-                    if not await allowed_by_robots(u, client):
-                        logging.info("blocked by robots", u)
-                        return
-                    try:
-                        snap = await crawl_page(p, u)
-                        await save_snapshot(u, snap["html"], snap["text"], {"fetched_at": time.time()})
-                    except Exception as e:
-                        logging.info("crawl error", u, e)
+                if not await allowed_by_robots(u, client):
+                    logging.info("blocked by robots", u)
+                    return
+                try:
+                    snap = await crawl_page(p, u)
+                    await save_snapshot(u, snap["html"], snap["text"], {"fetched_at": time.time()})
+                except Exception as e:
+                    logging.info("crawl error", u, e)
 
             await asyncio.gather(*(_crawl(u) for u in urls))
 

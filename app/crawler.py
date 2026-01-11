@@ -10,9 +10,9 @@ def run_crawl(payload: dict):
     seed = payload.get("seed_url")
     industry = payload.get("industry", "generic")
     try:
-        depth = int(payload.get("depth", 1))
+        int(payload.get("depth", 1))
     except Exception:
-        depth = 1
+        pass
 
     if not seed:
         return {"error": "seed_url required"}

@@ -29,7 +29,7 @@ def orchestrate_from_seed(seed_file: str, concurrency: int = 2):
     urls = [s.get("url") for s in seed.get("sources", []) if s.get("url")]
 
     to_render = []
-        logging.info(f"fetch {u}: status={res.get('status')} http={res.get('http_status')} len={res.get('content_length')}")
+    for u in urls:
         res = fetch_url(u)
         logging.info(f"fetch {u}: status={res.get('status')} http={res.get('http_status')} len={res.get('content_length')}")
         if res.get("status") == "ok" and needs_render(res):

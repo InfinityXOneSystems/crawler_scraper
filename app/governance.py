@@ -28,6 +28,7 @@ class Governance:
 
         Returns:
             bool: True if the document complies with policies, False otherwise.
+        """
         logging.info(f"Enforcing policies on document: {document}")
         # Placeholder for actual policy enforcement logic
         logging.info(f"Enforcing policies on document: {document}")

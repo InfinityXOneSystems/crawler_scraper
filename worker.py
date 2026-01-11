@@ -6,6 +6,7 @@ import os
 import time
 from pathlib import Path
 import requests
+import aiofiles
 from playwright.async_api import async_playwright
 
 OUT_DIR = Path("results/uncleaned")
@@ -55,7 +56,8 @@ async def fetch_and_save(url: str, use_credential_manager: bool = False, cm_url:
     }
     fname = OUT_DIR / f"sample-{ts}.json"
     logging.info('Wrote', fname)
-        json.dump(out, f, ensure_ascii=False, indent=2)
+    async with aiofiles.open(fname, "w", encoding="utf-8") as f:
+        await f.write(json.dumps(out, ensure_ascii=False, indent=2))
     logging.info('Wrote', fname)
 
 
